@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
@@ -7,6 +7,7 @@ import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
 import { RecoverDto } from './dto/recover.dto';
 import { User } from './models/users.model';
+import { Res } from './models/res.model';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,7 @@ export class UsersService {
         return user.save();
     }
 
-    public async signin(signinDto: SigninDto): Promise<{ name: String; jwtToken: string; email: string; }> {
+    public async signin(signinDto: SigninDto): Promise<Res> {
         const user = await this.findByEmail(signinDto.email); 
         const match = await this.checkPassword(signinDto.password, user);
 

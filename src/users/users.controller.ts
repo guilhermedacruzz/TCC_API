@@ -5,6 +5,7 @@ import { SignupDto } from './dto/signup.dto';
 import { RecoverDto } from './dto/recover.dto';
 import { User } from './models/users.model';
 import { UsersService } from './users.service';
+import { Res } from './models/res.model';
 
 @Controller('users')
 export class UsersController {
@@ -19,7 +20,7 @@ export class UsersController {
 
     @Post('signin')
     @HttpCode(HttpStatus.OK)
-    public async signin(@Body() signinDto: SigninDto): Promise<{ name: String; jwtToken: string; email: string; }> {
+    public async signin(@Body() signinDto: SigninDto): Promise<Res> {
         return this.usersService.signin(signinDto);
     }
 
