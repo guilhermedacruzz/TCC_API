@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Patch, Post, UseGuards } f
 import { AuthGuard } from '@nestjs/passport';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
-import { RecoverDto } from './dto/recover.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './models/users.model';
 import { UsersService } from './users.service';
 import { Res } from './models/res.model';
@@ -31,9 +31,9 @@ export class UsersController {
         return this.usersService.findAll();
     }
 
-    @Patch('recover')
-    recover(@Body() recoverDto: RecoverDto) {
-        this.usersService.recover(recoverDto);
+    @Patch('update')
+    update(@Body() updateUserDto: UpdateUserDto) {
+        this.usersService.update(updateUserDto);
     }
 
 }

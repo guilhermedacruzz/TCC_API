@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/auth.service';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
-import { RecoverDto } from './dto/recover.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './models/users.model';
 import { Res } from './models/res.model';
 
@@ -36,12 +36,12 @@ export class UsersService {
         return { name: user.name, jwtToken, email: user.email };
     }
 
-    public async recover(recoverDto: RecoverDto) {
-        const user = await this.findByEmail(recoverDto.email);
+    public async update(updateUserDto: UpdateUserDto) {
+        const user = await this.findByEmail(updateUserDto.email);
 
-        const post = await this.usersModel.findByIdAndUpdate(user.id, recoverDto);
+        const patch = await this.usersModel.findByIdAndUpdate(user.id, updateUserDto);
 
-        if(!post) {
+        if(!patch) {
             throw new NotFoundException();
         }
     }
