@@ -14,7 +14,7 @@ export class UsersController {
 
     @Post('signup')
     @HttpCode(HttpStatus.CREATED)
-    public async signup(@Body() signupDto: SignupDto): Promise<User> {
+    public async signup(@Body() signupDto: SignupDto): Promise<Res> {
         return this.usersService.signup(signupDto);
     }
 

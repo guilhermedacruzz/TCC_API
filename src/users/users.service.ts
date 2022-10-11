@@ -18,14 +18,18 @@ export class UsersService {
         private readonly authService: AuthService,
     ){}
 
-    public async signup(signupDto: SignupDto): Promise<User> {
+    public async signup(signupDto: SignupDto): Promise<Res> {
         const haveOutherUser = await this.usersModel.findOne({ email: signupDto.email }); 
         if(haveOutherUser) {
             throw new BadRequestException('Email duplicate');
         }
 
-        const newUser = new this.usersModel(signupDto);
-        return newUser.save();
+        const user = new this.usersModel(signupDto);
+        user.save();
+
+        const jwtToken = await this.authService.createAccessToken(user._id);
+
+        return { _id: user._id, name: user.name, jwtToken, email: user.email };
     }
 
     public async signin(signinDto: SigninDto): Promise<Res> {
@@ -38,7 +42,7 @@ export class UsersService {
         
         const jwtToken = await this.authService.createAccessToken(user._id);
 
-        return { name: user.name, jwtToken, email: user.email };
+        return { _id: user._id, name: user.name, jwtToken, email: user.email };
     }
 
     public async update(updateUserDto: UpdateUserDto) {
