@@ -13,15 +13,25 @@ export const UsersSchema = new mongoose.Schema({
     }
 });
 
-UsersSchema.pre('save', async function(next: mongoose.CallbackWithoutResultAndOptionalError){
+UsersSchema.pre('save', async function (next: mongoose.CallbackWithoutResultAndOptionalError) {
     try {
-        if(!this.isModified('password')) {
+        if (!this.isModified('password')) {
             return next();
         }
 
         this['password'] = await bcrypt.hash(this['password'], 10);
     }
-    catch(error) {
+    catch (error) {
         return next(error);
     }
 });
+
+UsersSchema.pre('findOneAndUpdate', async function (this) {
+    let update = {...this.getUpdate()};
+    if(update['password']) {
+        update['password'] = await bcrypt.hash(this.getUpdate()['password'], 10);
+        this.setUpdate(update);
+    }
+});
+
+

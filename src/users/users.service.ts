@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/auth.service';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
+import { UpdateUsersDto } from './dto/update-users.dto';
 import { User } from './models/users.model';
 
 @Injectable()
@@ -32,6 +33,16 @@ export class UsersService {
         const jwtToken = await this.authService.createAccessToken(user._id);
 
         return { name: user.name, jwtToken, email: user.email };
+    }
+
+    public async recover(updateUsersDto: UpdateUsersDto) {
+        const user = await this.findByEmail(updateUsersDto.email);
+
+        const post = await this.usersModel.findByIdAndUpdate(user.id, updateUsersDto);
+
+        if(!post) {
+            throw new NotFoundException();
+        }
     }
 
     public async findAll(): Promise<User[]> {

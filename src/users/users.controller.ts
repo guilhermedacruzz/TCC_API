@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
+import { UpdateUsersDto } from './dto/update-users.dto';
 import { User } from './models/users.model';
 import { UsersService } from './users.service';
 
@@ -28,4 +29,10 @@ export class UsersController {
     public async findAll(): Promise<User[]> {
         return this.usersService.findAll();
     }
+
+    @Patch('recover')
+    recover(@Body() updateUsersDto: UpdateUsersDto) {
+        this.usersService.recover(updateUsersDto);
+    }
+
 }
