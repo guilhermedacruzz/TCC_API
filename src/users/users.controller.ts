@@ -22,7 +22,7 @@ export class UsersController {
         return this.usersService.signin(signinDto);
     }
 
-    @Get()
+    @Get()  
     @UseGuards(AuthGuard('jwt'))
     @HttpCode(HttpStatus.OK)
     public async findAll(): Promise<User[]> {
