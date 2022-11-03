@@ -14,10 +14,10 @@ import { LogsModule } from './logs/logs.module';
     UsersModule,
     AuthModule,
     IotsModule,
-    MongooseModule.forRoot(process.env.MONGO_URI),
     LogsModule,
+    MongooseModule.forRoot(process.env.MONGO_URI),
   ],
-  controllers: [AppController, LogsController],
-  providers: [AppService, LogsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }
