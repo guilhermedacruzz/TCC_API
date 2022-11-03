@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateDto } from './dto/create.dto';
-import { FindByIdDto } from './dto/findById.dto';
+import { FindByUserIdDto } from './dto/findByUserId.dto';
 import { Iot } from './models/iots.model';
-import { Res } from './models/res.model';
+import { ResIots } from './models/resIots.model';
 
 @Injectable()
 export class IotsService {
@@ -13,7 +13,7 @@ export class IotsService {
         private readonly iotsModel: Model<Iot>,
     ){}
 
-    public async create(createDto: CreateDto): Promise<Res> {
+    public async create(createDto: CreateDto): Promise<ResIots> {
         const iot = new this.iotsModel(createDto);
         iot.save();
 
@@ -24,11 +24,11 @@ export class IotsService {
         return this.iotsModel.find();
     }
 
-    public async findById(findByIdDto: FindByIdDto): Promise<Iot[]> {
+    public async findByUserId(findByUserIdDto: FindByUserIdDto): Promise<Iot[]> {
         const allIots = await this.findAll();
         var iotsById = [];
         for(var i = 0; i < allIots.length; i++) {
-            if(allIots[i].user == findByIdDto.id) {
+            if(allIots[i].user == findByUserIdDto.id) {
                 iotsById.push(allIots[i]);
             }
         }

@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { CreateDto } from './dto/create.dto';
-import { FindByIdDto } from './dto/findById.dto';
+import { FindByUserIdDto } from './dto/findByUserId.dto';
 import { IotsService } from './iots.service';
 import { Iot } from './models/iots.model';
-import { Res } from './models/res.model';
+import { ResIots } from './models/resIots.model';
 
 @Controller('iots')
 export class IotsController {
@@ -12,7 +12,7 @@ export class IotsController {
 
     @Post('create')
     @HttpCode(HttpStatus.CREATED)
-    public async create(@Body() createDto: CreateDto): Promise<Res> {
+    public async create(@Body() createDto: CreateDto): Promise<ResIots> {
         return this.iotsService.create(createDto);
     }
 
@@ -22,9 +22,9 @@ export class IotsController {
         return this.iotsService.findAll();
     }
 
-    @Get('byId')
+    @Get('byUserId')
     @HttpCode(HttpStatus.OK)
-    public async findById(@Body() findById: FindByIdDto): Promise<Iot[]> {
-        return this.iotsService.findById(findById);
+    public async findById(@Body() findByUserIdDto: FindByUserIdDto): Promise<Iot[]> {
+        return this.iotsService.findByUserId(findByUserIdDto);
     }
 }

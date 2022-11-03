@@ -7,7 +7,7 @@ import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './models/users.model';
-import { Res } from './models/res.model';
+import { ResUsers } from './models/resUsers.model';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +18,7 @@ export class UsersService {
         private readonly authService: AuthService,
     ){}
 
-    public async signup(signupDto: SignupDto): Promise<Res> {
+    public async signup(signupDto: SignupDto): Promise<ResUsers> {
         const haveOutherUser = await this.usersModel.findOne({ email: signupDto.email }); 
         if(haveOutherUser) {
             throw new BadRequestException('Email duplicate');
@@ -32,7 +32,7 @@ export class UsersService {
         return { _id: user._id, name: user.name, jwtToken, email: user.email };
     }
 
-    public async signin(signinDto: SigninDto): Promise<Res> {
+    public async signin(signinDto: SigninDto): Promise<ResUsers> {
         const user = await this.findByEmail(signinDto.email); 
         const match = await this.checkPassword(signinDto.password, user);
 

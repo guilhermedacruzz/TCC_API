@@ -5,7 +5,7 @@ import { SignupDto } from './dto/signup.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './models/users.model';
 import { UsersService } from './users.service';
-import { Res } from './models/res.model';
+import { ResUsers } from './models/resUsers.model';
 
 @Controller('users')
 export class UsersController {
@@ -14,13 +14,13 @@ export class UsersController {
 
     @Post('signup')
     @HttpCode(HttpStatus.CREATED)
-    public async signup(@Body() signupDto: SignupDto): Promise<Res> {
+    public async signup(@Body() signupDto: SignupDto): Promise<ResUsers> {
         return this.usersService.signup(signupDto);
     }
 
     @Post('signin')
     @HttpCode(HttpStatus.OK)
-    public async signin(@Body() signinDto: SigninDto): Promise<Res> {
+    public async signin(@Body() signinDto: SigninDto): Promise<ResUsers> {
         return this.usersService.signin(signinDto);
     }
 

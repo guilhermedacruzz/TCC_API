@@ -1,6 +1,6 @@
 import { Document, Schema } from "mongoose";
 
-export interface Res{
+export interface ResIots{
     _id: string;
     name: string;
     description : string;
