@@ -45,7 +45,7 @@ export class UsersService {
         return { _id: user._id, name: user.name, jwtToken, email: user.email };
     }
 
-    public async update(updateUserDto: UpdateUserDto) {
+    public async update(updateUserDto: UpdateUserDto): Promise<{name: string, email: string}> {
         const user = await this.findByEmail(updateUserDto.email);
 
         const patch = await this.usersModel.findByIdAndUpdate(user.id, updateUserDto);
@@ -53,6 +53,8 @@ export class UsersService {
         if(!patch) {
             throw new NotFoundException();
         }
+
+        return { name: updateUserDto.name, email: updateUserDto.email };
     }
 
     public async findAll(): Promise<User[]> {

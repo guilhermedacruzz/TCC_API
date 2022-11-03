@@ -32,8 +32,8 @@ export class UsersController {
     }
 
     @Patch('update')
-    update(@Body() updateUserDto: UpdateUserDto) {
-        this.usersService.update(updateUserDto);
+    update(@Body() updateUserDto: UpdateUserDto) : Promise<{name: string, email: string}> {
+        return this.usersService.update(updateUserDto);
     }
 
 }
