@@ -4,16 +4,16 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { IotsController } from './iots/iots.controller';
 import { IotsModule } from './iots/iots.module';
 
 @Module({
   imports: [
-    UsersModule, 
-    AuthModule, 
-    MongooseModule.forRoot(process.env.MONGO_URI), IotsModule,
+    UsersModule,
+    AuthModule,
+    IotsModule,
+    MongooseModule.forRoot(process.env.MONGO_URI),
   ],
-  controllers: [AppController, IotsController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule { }

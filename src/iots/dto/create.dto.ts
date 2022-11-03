@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, MinLength } from "class-validator";
 import { Schema } from "mongoose";
 
-export class iotsDto {
+export class CreateDto {
 
     @IsNotEmpty()
     @IsString()
