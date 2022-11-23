@@ -13,5 +13,17 @@ export const IotsSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'User',
-    }
+    },
+    timer: {
+        type: Number,
+        required: true,
+    },
+    ssid: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
 });

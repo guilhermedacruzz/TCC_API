@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, MinLength } from "class-validator";
 import { Schema } from "mongoose";
 
 export class CreateDto {
@@ -15,4 +15,18 @@ export class CreateDto {
 
     @IsNotEmpty()
     user: Schema.Types.ObjectId;
+
+    @IsNotEmpty()
+    @IsNumber()
+    timer: Number;
+
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(5)
+    ssid: string;    
+
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(5)
+    password: string;
 }

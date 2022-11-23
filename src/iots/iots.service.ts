@@ -11,13 +11,13 @@ export class IotsService {
     constructor(
         @InjectModel('Iot')
         private readonly iotsModel: Model<Iot>,
-    ){}
+    ) { }
 
     public async create(createDto: CreateDto): Promise<ResIots> {
         const iot = new this.iotsModel(createDto);
         iot.save();
 
-        return {_id: iot._id, name: iot.name, description: iot.description};
+        return { _id: iot._id, name: iot.name, description: iot.description, timer: iot.timer, ssid: iot.ssid, password: iot.password };
     }
 
     public async findAll(): Promise<Iot[]> {
@@ -27,8 +27,8 @@ export class IotsService {
     public async findByUserId(findByUserIdDto: FindByUserIdDto): Promise<Iot[]> {
         const allIots = await this.findAll();
         var iotsById = [];
-        for(var i = 0; i < allIots.length; i++) {
-            if(allIots[i].user == findByUserIdDto.id) {
+        for (var i = 0; i < allIots.length; i++) {
+            if (allIots[i].user == findByUserIdDto.id) {
                 iotsById.push(allIots[i]);
             }
         }
