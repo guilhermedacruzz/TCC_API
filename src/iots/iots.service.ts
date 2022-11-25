@@ -17,7 +17,7 @@ export class IotsService {
         const iot = new this.iotsModel(createDto);
         iot.save();
 
-        return { _id: iot._id, name: iot.name, description: iot.description, timer: iot.timer, ssid: iot.ssid, password: iot.password };
+        return { _id: iot._id, name: iot.name, description: iot.description, user: iot.user, timer: iot.timer, ssid: iot.ssid, password: iot.password };
     }
 
     public async findAll(): Promise<Iot[]> {
