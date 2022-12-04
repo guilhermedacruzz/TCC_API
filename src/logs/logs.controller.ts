@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestjs/common';
 import { CreateDto } from './dto/create.dto';
 import { FindByIotIdDto } from './dto/findByIotId.dto';
 import { LogsService } from './logs.service';
@@ -15,9 +15,9 @@ export class LogsController {
         return this.logsService.create(createDto);
     }
 
-    @Get('byIotId')
+    @Get('findByIotId')
     @HttpCode(HttpStatus.OK)
-    public async findById(@Body() findByIotIdDto: FindByIotIdDto): Promise<Log[]> {
+    public async findById(@Query() findByIotIdDto: FindByIotIdDto): Promise<Log[]> {
         return this.logsService.findByIotId(findByIotIdDto);
     }
 }
